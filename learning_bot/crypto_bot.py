@@ -36,23 +36,25 @@ print(models)
 # #############################################################################
 # Retrieve the data from Internet
 
-CRYPTO = "BTC" # Bitcoin has id = 1
+CRYPTO = "BTC" # Bitcoin
 API_KEY = "<YOUR_API_KEY>"
-# API_URL = "https://api.coinmarketcap.com/v2/ticker/" + CRYPTO + "/?convert=EUR"
-API_URL = "https://min-api.cryptocompare.com/data/histoday?fsym=" + CRYPTO + "&tsym=EUR&limit=364&api_key=" + API_KEY + ""
-BTC_RATE =  "https://min-api.cryptocompare.com/data/dayAvg?fsym=" + CRYPTO + "&tsym=EUR&api_key=" + API_KEY + ""
 
+LAST_YEAR_TREND = "https://min-api.cryptocompare.com/data/histoday?fsym=" + CRYPTO + "&tsym=EUR&limit=364&api_key=" + API_KEY + ""
+CURRENT_BTC_RATE =  "https://min-api.cryptocompare.com/data/dayAvg?fsym=" + CRYPTO + "&tsym=EUR&api_key=" + API_KEY + ""
+LAST_WEEK_TREND = "https://min-api.cryptocompare.com/data/histominute?fsym=" + CRYPTO + "&tsym=EUR&api_key=" + API_KEY + ""
 rates = []
 one_day_rates = []
 one_week_rates = []
 one_hour_rates = []
-high = []
-low = []
+year_high = []
+year_low = []
+week_high = []
+week_low = []
 current_rate = []
 i = 0
 
 # Get instant crypto rates
-def lastYearStats(url: str):
+def getStats(url: str):
     res = urlopen(url)
     body = res.read()
     data = json.loads(body)
@@ -67,49 +69,45 @@ def getCurrentValue(url: str):
 
 # Put data in array
 def getRates():
-    print("Get " + CRYPTO + " data from 1 year...")
-    data = lastYearStats(API_URL)
+    print("Get " + CRYPTO + " daily data from 1 year...")
+    last_year_data = getStats(LAST_YEAR_TREND)
+    print("Get " + CRYPTO + " data by minute from 1 week...")
+    last_week_data = getStats(LAST_WEEK_TREND)
+
     print("Got data, preparing it ...")
-    for item in data:
+    for item in last_year_data:
         item = objectview(item)
         print(item.__dict__['high'])
-        rates.append(item)
-        high.append(item.__dict__['high'])
-        low.append(item.__dict__['low'])
-    # crypto = objectview(data)
-    # rate = crypto.__dict__['data']['quotes']['EUR']
-    # one_hour_rates.append(rate['percent_change_1h'])
-    # one_day_rates.append(rate['percent_change_24h'])
-    # one_week_rates.append(rate['percent_change_7d'])
-    # print(rates)
-    return rates
+        # rates.append(item)
+        year_high.append(item.__dict__['high'])
+        year_low.append(item.__dict__['low'])
+
+    for item in last_week_data:
+        item = objectview(item)
+        week_high.append(item.__dict__['high'])
+        week_low.append(item.__dict__['low'])
+        print(item.__dict__['high'])
 
 # Fetch Bitcoin data at regular intervals
 def start():
-    # i = 0
-    # while (i < 10):
-    #     timer = Timer(1.0, getRates, [i]) 
-    #     timer.start()
-    #     timer.join()
-    #     i += 1
-    data = getRates()
-    preprocessingData()
+    getRates()
+    year_stats = preprocessingData(year_high, year_low)
+    week_stats = preprocessingData(week_high, week_low)
     print("Listen current market...")
-    flood()
-    print("End")
+    floodApi()
     
 # Fetch current trend every minute
-def flood():
+def floodApi():
     i = 0
     while (1 == 1):
-        timer = Timer(60.0, getCurrentValue, [BTC_RATE]) 
+        timer = Timer(60.0, getCurrentValue, [CURRENT_BTC_RATE]) 
         timer.start()
         timer.join()
-        print(timer)
+        # print(timer)
 
 # Make the preprocessing
 # @see https://scikit-learn.org/stable/modules/preprocessing.html
-def preprocessingData():
+def preprocessingData(high, low):
     print("Start preprocessing...")
     # X_train = np.array([one_hour_rates, one_day_rates, one_week_rates])
     X_train = np.array([high, low])
@@ -132,4 +130,6 @@ def preprocessingData():
 class objectview(object):
     def __init__(self, d):
         self.__dict__ = d
+
+# Launch app on startup
 start()

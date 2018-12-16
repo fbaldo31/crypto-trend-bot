@@ -6,10 +6,9 @@
 ## Pre-requisites
 
 - Python 3.6
+- anaconda 3
 - sklearn and all its required dependencies
 - Django (To be remove ?)
-
-Tested under anaconda 3
 
 ## Settings
 
@@ -26,5 +25,6 @@ then open your environment in a terminal and
 ## Features
 
 1. Get the BTC (can be either other crypto) trend over the past year.
-2. Put the high, mid and low values in arrays and preprocess it.
-3. Fetch every minute the current rate.
+2. Get the BTC rates for each min during the last week
+3. Put the high, mid and low values in arrays and preprocess it.
+4. Fetch every minute the current rate.
