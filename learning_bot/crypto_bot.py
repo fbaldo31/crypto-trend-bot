@@ -37,8 +37,8 @@ print(models)
 # Retrieve the data from Internet
 
 CRYPTO = "BTC" # Bitcoin
-API_KEY = "<YOUR_API_KEY>"
-
+# API_KEY = "<YOUR_API_KEY>"
+API_KEY = "da192bcd573229c4e5308b7f69842ab646aa4cdf649a8af4ce0e981e04e51c54"
 LAST_YEAR_TREND = "https://min-api.cryptocompare.com/data/histoday?fsym=" + CRYPTO + "&tsym=EUR&limit=364&api_key=" + API_KEY + ""
 CURRENT_BTC_RATE =  "https://min-api.cryptocompare.com/data/dayAvg?fsym=" + CRYPTO + "&tsym=EUR&api_key=" + API_KEY + ""
 LAST_WEEK_TREND = "https://min-api.cryptocompare.com/data/histominute?fsym=" + CRYPTO + "&tsym=EUR&api_key=" + API_KEY + ""
@@ -132,4 +132,4 @@ class objectview(object):
         self.__dict__ = d
 
 # Launch app on startup
-start()
+# start()

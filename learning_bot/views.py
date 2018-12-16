@@ -7,7 +7,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 # from . import bot
-from . import crypto_bot
+# from . import crypto_bot
+from . import ltms
 
 def index(request):
     # plt = "Hello Fred"
