@@ -5,22 +5,32 @@
 
 ## Pre-requisites
 
-- Python 3.6
+- Python 3.7
 - anaconda 3
-- sklearn and all its required dependencies
-- Django (To be remove ?)
+- slicklearn and all its required dependencies
+- matplotlib
+- django
+- seaborn
+- pil
+- lxml
+- keras
+- plotly
 
 ## Settings
 
-Replace <YOUR_API_KEY> in `learning_bot/crypto_bot.py` with your own, got on [cryptocompare](https://min-api.cryptocompare.com)
+Replace <YOUR_API_KEY> in `learning_bot/ltms.py` with your own, got on [cryptocompare](https://min-api.cryptocompare.com)
+
+**1.Create a python3.6 environnment**
+
 
 ## Run
 
 `anaconda-navigator`
 
-then open your environment in a terminal and
-
-`python manage.py runserver 8000`
+1. Activate your environment:
+Assuming your env is `py36` `source activate py36`
+2. `cd trend_bot` 
+3. `python manage.py runserver 8000 --nothreading --noreload`
 
 ## Features
 

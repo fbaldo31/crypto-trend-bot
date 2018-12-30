@@ -1,0 +1,21 @@
+
+<p>
+  <ngb-alert [dismissible]="true" *ngIf="errMsg !== ''">
+    <strong>Error!</strong> {{errMsg}}
+  </ngb-alert>
+</p>
+
+<!-- debug -->
+isLoading: {{isLoading}}, step: {{step}}
+
+<!-- Navigation -->
+<p *ngIf="step < 1"><button class="btn btn-primary" (click)="start()">Start !</button></p>
+<!-- Step 1-->
+<div *ngFor="let item of graphs" class="step">
+  Step {{step}} Result:
+  {{item}}
+  <p *ngIf="isLoading && step === 0">Waitting for computting...</p>
+  <!-- Graph-->
+  <div class="card">
+    <plotly-plot [data]="item.data" [layout]="item.layout"></plotly-plot>
+  </div>
