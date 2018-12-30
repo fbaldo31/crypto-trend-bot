@@ -18,13 +18,10 @@
 
 ## Settings
 
-Replace <YOUR_API_KEY> in `learning_bot/crypto_bot.py` with your own, got on [cryptocompare](https://min-api.cryptocompare.com)
+Replace <YOUR_API_KEY> in `learning_bot/ltms.py` with your own, got on [cryptocompare](https://min-api.cryptocompare.com)
 
 **1.Create a python3.6 environnment**
 
-**Add a template file:**
->`sudo mv ~/trend_bot/learning_bot/pages/index.html ~/tools/anaconda3/envs/py36/lib/python3.7/site-packages/django/contrib/admin/templates/trend_bot/pages/index.html
-`
 
 ## Run
 

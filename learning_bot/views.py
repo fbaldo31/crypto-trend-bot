@@ -33,8 +33,8 @@ API ENDPOINTS
 
 def index(request):
     message = ""
-    return render(request, 'trend_bot/pages/index.html', { 'message': "Welcome ! Let's start the step 1." })
-    # return HttpResponse("Done")
+    # return render(request, 'trend_bot/pages/index.html', { 'message': "Welcome ! Let's start the step 1." })
+    return HttpResponse("Welcome")
 
 def step1(request):
     body = json.dumps(ltms.get_seasonal_decompose())

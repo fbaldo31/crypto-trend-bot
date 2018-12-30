@@ -41,8 +41,7 @@ class Rate():
     volumefrom = 0.0
 # load the dataset
 CRYPTO = "BTC" # Bitcoin
-# API_KEY = "<YOUR_API_KEY>"
-API_KEY = "da192bcd573229c4e5308b7f69842ab646aa4cdf649a8af4ce0e981e04e51c54"
+API_KEY = "<YOUR_API_KEY>"
 LAST_YEAR_TREND = "https://min-api.cryptocompare.com/data/histoday?fsym=" + CRYPTO + "&tsym=EUR&limit=364&api_key=" + API_KEY + ""
 ALL_RATES = []
 
