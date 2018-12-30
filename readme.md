@@ -5,6 +5,7 @@
 
 ## Pre-requisites
 
+**Backend**
 - Python 3.7
 - anaconda 3
 - slicklearn and all its required dependencies
@@ -16,6 +17,10 @@
 - keras
 - plotly
 
+**Frontend**
+- Node.js
+- @angular/cli (global)
+
 ## Settings
 
 Replace <YOUR_API_KEY> in `api/ltms.py` with your own, got on [cryptocompare](https://min-api.cryptocompare.com)
@@ -25,15 +30,18 @@ Replace <YOUR_API_KEY> in `api/ltms.py` with your own, got on [cryptocompare](ht
 
 ## Run
 
-`anaconda-navigator`
+**Backend**
 
-1. Activate your environment:
+1. Activate your Python environment:
 Assuming your env is `py36` `source activate py36`
-2. `python manage.py runserver 8000 --nothreading --noreload`
+2. Open Anaconda Navigator to install the required dependencies `anaconda-navigator`
+3. Run server `python3 manage.py runserver 8000 --nothreading --noreload`
+
+**Frontend**
+`ng serve`
 
 ## Features
 
 1. Get the BTC (can be either other crypto) trend over the past year.
-2. Get the BTC rates for each min during the last week
-3. Put the high, mid and low values in arrays and preprocess it.
-4. Fetch every minute the current rate.
+2. Train the model
+3. Display results in charts
