@@ -13,6 +13,8 @@
 - seaborn
 - pil
 - lxml
+- keras
+- plotly
 
 ## Settings
 

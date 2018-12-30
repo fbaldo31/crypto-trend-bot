@@ -3,24 +3,26 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PlotlyModule } from 'angular-plotly.js';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { ImageWrapperComponent } from './image-wrapper/image-wrapper.component';
+import { GraphComponent } from './graph/graph.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ImageWrapperComponent,
+    GraphComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    PlotlyModule
   ],
   providers: [],
   bootstrap: [AppComponent]
