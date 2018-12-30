@@ -18,7 +18,7 @@
 
 ## Settings
 
-Replace <YOUR_API_KEY> in `learning_bot/ltms.py` with your own, got on [cryptocompare](https://min-api.cryptocompare.com)
+Replace <YOUR_API_KEY> in `api/ltms.py` with your own, got on [cryptocompare](https://min-api.cryptocompare.com)
 
 **1.Create a python3.6 environnment**
 
@@ -29,8 +29,7 @@ Replace <YOUR_API_KEY> in `learning_bot/ltms.py` with your own, got on [cryptoco
 
 1. Activate your environment:
 Assuming your env is `py36` `source activate py36`
-2. `cd trend_bot` 
-3. `python manage.py runserver 8000 --nothreading --noreload`
+2. `python manage.py runserver 8000 --nothreading --noreload`
 
 ## Features
 

@@ -1,3 +1,5 @@
 api_key.txt
-*/__pycache__
+.vscode
+api/__pycache__
+server/__pycache__
 old
