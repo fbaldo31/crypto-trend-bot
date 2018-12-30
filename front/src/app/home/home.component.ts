@@ -40,15 +40,14 @@ export class HomeComponent implements OnInit {
 
   }
 
-  start() {
+  nextStep() {
     this.isLoading = true;
     this.errMsg = '';
-    this.http.get(this.API_URL + '/step1')
+    this.http.get(this.API_URL + '/step' + (this.step + 1))
       .subscribe((res: any) => {
-        this.lastYearData = this.handleResponse(res);
-        // console.log(this.lastYearData);
-        Promise.all(this.lastYearData)
-          .then(() => this.graphs.push(JSON.parse(this.lastYearData))).catch((err) => console.error(err));
+        this.handleResponse(res)
+          .then((data: IGraph) => this.graphs.push(data))
+          .catch((err: Error) => this.errMsg = err.message);
       });
   }
 
@@ -68,10 +67,10 @@ export class HomeComponent implements OnInit {
   //   this.render.appendChild(this.render.selectRootElement('#step' + step + '-card'), this.fig1);
   // }
 
-  handleResponse(res: any) {
+  async handleResponse(res: any) {
     let graphData: IGraph;
     try {
-      graphData = res;
+      graphData = JSON.parse(res);
     } catch (err) {
       this.errMsg = err.message;
       this.isLoading = false;
@@ -80,7 +79,7 @@ export class HomeComponent implements OnInit {
     }
     this.step++;
     this.isLoading = false;
-    return graphData;
+    return await graphData;
   }
 
   handleError(err: Error) {

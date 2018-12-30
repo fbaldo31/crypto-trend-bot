@@ -9,7 +9,7 @@
 isLoading: {{isLoading}}, step: {{step}}
 
 <!-- Navigation -->
-<p *ngIf="step < 1"><button class="btn btn-primary" (click)="start()">Start !</button></p>
+<p><button class="btn btn-primary" (click)="nextStep()">Next step !</button></p>
 <!-- Step 1-->
 <div *ngFor="let item of graphs" class="step">
   Step {{step}} Result:
@@ -19,3 +19,4 @@ isLoading: {{isLoading}}, step: {{step}}
   <div class="card">
     <plotly-plot [data]="item.data" [layout]="item.layout"></plotly-plot>
   </div>
+</div>

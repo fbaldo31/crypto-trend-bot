@@ -116,7 +116,6 @@ print(len(df_train), len(df_test))
 # Exploratory Data Analysis 
 #
 
-
 working_data = [df_train, df_test]
 working_data = pd.concat(working_data)
 
@@ -139,100 +138,107 @@ trace4 = go.Scatter(x = np.arange(0, len(s.observed), 1),y = s.observed,mode = '
 
 data = [trace1, trace2, trace3, trace4]
 layout = dict(title = 'Seasonal decomposition', xaxis = dict(title = 'Time'), yaxis = dict(title = 'Price, USD'))
-
+# fig = dict(data=data, layout=layout)
+# py.iplot(fig, filename='seasonal_decomposition', image='png')
 sd_data = data
 sd_layout = layout
 
 def get_seasonal_decompose():
     return json.dumps({ 'data': sd_data, 'layout': sd_layout }, cls=plotly.utils.PlotlyJSONEncoder)
 
-# fig = dict(data=data, layout=layout)
-# py.iplot(fig, filename='seasonal_decomposition', image='png')
+# examination of the autocorrelation
+def get_autocorrelation():
+    plt.figure(figsize=(15,7))
+    ax = plt.subplot(211)
+    sm.graphics.tsa.plot_acf(working_data.close.values.squeeze(), lags=48, ax=ax)
+    ax = plt.subplot(212)
+    sm.graphics.tsa.plot_pacf(working_data.close.values.squeeze(), lags=48, ax=ax)
+    plt.tight_layout()
+    plt.show()
+    return ""
 
-# # examination of the autocorrelation
-# plt.figure(figsize=(15,7))
-# ax = plt.subplot(211)
-# sm.graphics.tsa.plot_acf(working_data.close.values.squeeze(), lags=48, ax=ax)
-# ax = plt.subplot(212)
-# sm.graphics.tsa.plot_pacf(working_data.close.values.squeeze(), lags=48, ax=ax)
-# plt.tight_layout()
-# plt.show()
+# Now we need to recover our df_train and df_test datasets:
+df_train = working_data[:-60]
+df_test = working_data[-60:]
 
-# # Now we need to recover our df_train and df_test datasets:
-# df_train = working_data[:-60]
-# df_test = working_data[-60:]
+#
+# Data preparation
+#
 
-# #
-# # Data preparation
-# #
+def create_lookback(dataset, look_back=1):
+    X, Y = [], []
+    for i in range(len(dataset) - look_back):
+        a = dataset[i:(i + look_back), 0]
+        X.append(a)
+        Y.append(dataset[i + look_back, 0])
+    return np.array(X), np.array(Y)
 
-# def create_lookback(dataset, look_back=1):
-#     X, Y = [], []
-#     for i in range(len(dataset) - look_back):
-#         a = dataset[i:(i + look_back), 0]
-#         X.append(a)
-#         Y.append(dataset[i + look_back, 0])
-#     return np.array(X), np.array(Y)
+from sklearn.preprocessing import MinMaxScaler
 
-# from sklearn.preprocessing import MinMaxScaler
+training_set = df_train.values
+training_set = np.reshape(training_set, (len(training_set), 1))
+test_set = df_test.values
+test_set = np.reshape(test_set, (len(test_set), 1))
 
-# training_set = df_train.values
-# training_set = np.reshape(training_set, (len(training_set), 1))
-# test_set = df_test.values
-# test_set = np.reshape(test_set, (len(test_set), 1))
+#scale datasets
+scaler = MinMaxScaler()
+training_set = scaler.fit_transform(training_set)
+test_set = scaler.transform(test_set)
 
-# #scale datasets
-# scaler = MinMaxScaler()
-# training_set = scaler.fit_transform(training_set)
-# test_set = scaler.transform(test_set)
+# create datasets which are suitable for time series forecasting
+look_back = 1
+X_train, Y_train = create_lookback(training_set, look_back)
+X_test, Y_test = create_lookback(test_set, look_back)
 
-# # create datasets which are suitable for time series forecasting
-# look_back = 1
-# X_train, Y_train = create_lookback(training_set, look_back)
-# X_test, Y_test = create_lookback(test_set, look_back)
-
-#  # reshape datasets so that they will be ok for the requirements of the LSTM model in Keras
-# X_train = np.reshape(X_train, (len(X_train), 1, X_train.shape[1]))
-# X_test = np.reshape(X_test, (len(X_test), 1, X_test.shape[1]))
+ # reshape datasets so that they will be ok for the requirements of the LSTM model in Keras
+X_train = np.reshape(X_train, (len(X_train), 1, X_train.shape[1]))
+X_test = np.reshape(X_test, (len(X_test), 1, X_test.shape[1]))
 
 
 # # 
 # # Training 2-layers LSTM Neural Network  
 # #
 
-# # initialize sequential model, add 2 stacked LSTM layers and densely connected output neuron
-# model = Sequential()
-# model.add(LSTM(256, return_sequences=True, input_shape=(X_train.shape[1], X_train.shape[2])))
-# model.add(LSTM(256))
-# model.add(Dense(1))
+# initialize sequential model, add 2 stacked LSTM layers and densely connected output neuron
+model = Sequential()
+model.add(LSTM(256, return_sequences=True, input_shape=(X_train.shape[1], X_train.shape[2])))
+model.add(LSTM(256))
+model.add(Dense(1))
 
-# # compile and fit the model
-# model.compile(loss='mean_squared_error', optimizer='adam')
-# history = model.fit(X_train, Y_train, epochs=100, batch_size=16, shuffle=False,
-#                     validation_data=(X_test, Y_test),
-#                     callbacks = [EarlyStopping(monitor='val_loss', min_delta=5e-5, patience=20, verbose=1)])
+# compile and fit the model
+model.compile(loss='mean_squared_error', optimizer='adam')
+history = model.fit(X_train, Y_train, epochs=100, batch_size=16, shuffle=False,
+                    validation_data=(X_test, Y_test),
+                    callbacks = [EarlyStopping(monitor='val_loss', min_delta=5e-5, patience=20, verbose=1)])
 
 
-# trace1 = go.Scatter(
-#     x = np.arange(0, len(history.history['loss']), 1),
-#     y = history.history['loss'],
-#     mode = 'lines',
-#     name = 'Train loss',
-#     line = dict(color=('rgb(66, 244, 155)'), width=2, dash='dash')
-# )
-# trace2 = go.Scatter(
-#     x = np.arange(0, len(history.history['val_loss']), 1),
-#     y = history.history['val_loss'],
-#     mode = 'lines',
-#     name = 'Test loss',
-#     line = dict(color=('rgb(244, 146, 65)'), width=2)
-# )
+trace1 = go.Scatter(
+    x = np.arange(0, len(history.history['loss']), 1),
+    y = history.history['loss'],
+    mode = 'lines',
+    name = 'Train loss',
+    line = dict(color=('rgb(66, 244, 155)'), width=2, dash='dash')
+)
+trace2 = go.Scatter(
+    x = np.arange(0, len(history.history['val_loss']), 1),
+    y = history.history['val_loss'],
+    mode = 'lines',
+    name = 'Test loss',
+    line = dict(color=('rgb(244, 146, 65)'), width=2)
+)
 
-# data = [trace1, trace2]
-# layout = dict(title = 'Train and Test Loss during training',
-#               xaxis = dict(title = 'Epoch number'), yaxis = dict(title = 'Loss'))
+data = [trace1, trace2]
+layout = dict(title = 'Train and Test Loss during training',
+              xaxis = dict(title = 'Epoch number'), yaxis = dict(title = 'Loss'))
 # fig = dict(data=data, layout=layout)
 # py.iplot(fig, filename='training_process', image='png')
+
+
+tp_data = data
+tp_layout = layout
+
+def get_training_process():
+    return json.dumps({ 'data': tp_data, 'layout': tp_layout }, cls=plotly.utils.PlotlyJSONEncoder)
 
 
 # # add one additional data point to align shapes of the predictions and true labels
@@ -240,49 +246,61 @@ def get_seasonal_decompose():
 # X_test = np.reshape(X_test, (len(X_test), 1, 1))
 
 # # get predictions and then make some transformations to be able to calculate RMSE properly in USD
-# prediction = model.predict(X_test)
-# prediction_inverse = scaler.inverse_transform(prediction.reshape(-1, 1))
-# Y_test_inverse = scaler.inverse_transform(Y_test.reshape(-1, 1))
-# prediction2_inverse = np.array(prediction_inverse[:,0][1:])
-# Y_test2_inverse = np.array(Y_test_inverse[:,0])
+prediction = model.predict(X_test)
+prediction_inverse = scaler.inverse_transform(prediction.reshape(-1, 1))
+Y_test_inverse = scaler.inverse_transform(Y_test.reshape(-1, 1))
+prediction2_inverse = np.array(prediction_inverse[:,0][1:])
+Y_test2_inverse = np.array(Y_test_inverse[:,0])
 
 
-# trace1 = go.Scatter(
-#     x = np.arange(0, len(prediction2_inverse), 1),
-#     y = prediction2_inverse,
-#     mode = 'lines',
-#     name = 'Predicted labels',
-#     line = dict(color=('rgb(244, 146, 65)'), width=2)
-# )
-# trace2 = go.Scatter(
-#     x = np.arange(0, len(Y_test2_inverse), 1),
-#     y = Y_test2_inverse,
-#     mode = 'lines',
-#     name = 'True labels',
-#     line = dict(color=('rgb(66, 244, 155)'), width=2)
-# )
+trace1 = go.Scatter(
+    x = np.arange(0, len(prediction2_inverse), 1),
+    y = prediction2_inverse,
+    mode = 'lines',
+    name = 'Predicted labels',
+    line = dict(color=('rgb(244, 146, 65)'), width=2)
+)
+trace2 = go.Scatter(
+    x = np.arange(0, len(Y_test2_inverse), 1),
+    y = Y_test2_inverse,
+    mode = 'lines',
+    name = 'True labels',
+    line = dict(color=('rgb(66, 244, 155)'), width=2)
+)
 
-# data = [trace1, trace2]
-# layout = dict(title = 'Comparison of true prices (on the test dataset) with prices our model predicted',
-#              xaxis = dict(title = 'Day number'), yaxis = dict(title = 'Price, USD'))
+data = [trace1, trace2]
+layout = dict(title = 'Comparison of true prices (on the test dataset) with prices our model predicted',
+             xaxis = dict(title = 'Day number'), yaxis = dict(title = 'Price, USD'))
 # fig = dict(data=data, layout=layout)
 # py.iplot(fig, filename='results_demonstrating0', image='png')
+
+rd_data = data
+rd_layout = layout
+
+def get_results_demonstrating0():
+    return json.dumps({ 'data': rd_data, 'layout': rd_layout }, cls=plotly.utils.PlotlyJSONEncoder)
 
 # RMSE = sqrt(mean_squared_error(Y_test2_inverse, prediction2_inverse))
 # print('Test RMSE: %.3f' % RMSE)
 
 
-# Test_Dates = Daily_Price[len(Daily_Price)-days_from_train:].index
+Test_Dates = Daily_Price[len(Daily_Price)-days_from_train:].index
 
-# trace1 = go.Scatter(x=Test_Dates, y=Y_test2_inverse, name= 'Actual Price',
-#                    line = dict(color = ('rgb(66, 244, 155)'),width = 2))
-# trace2 = go.Scatter(x=Test_Dates, y=prediction2_inverse, name= 'Predicted Price',
-#                    line = dict(color = ('rgb(244, 146, 65)'),width = 2))
-# data = [trace1, trace2]
-# layout = dict(title = 'Comparison of true prices (on the test dataset) with prices our model predicted, by dates',
-#              xaxis = dict(title = 'Date'), yaxis = dict(title = 'Price, USD'))
+trace1 = go.Scatter(x=Test_Dates, y=Y_test2_inverse, name= 'Actual Price',
+                   line = dict(color = ('rgb(66, 244, 155)'),width = 2))
+trace2 = go.Scatter(x=Test_Dates, y=prediction2_inverse, name= 'Predicted Price',
+                   line = dict(color = ('rgb(244, 146, 65)'),width = 2))
+data = [trace1, trace2]
+layout = dict(title = 'Comparison of true prices (on the test dataset) with prices our model predicted, by dates',
+             xaxis = dict(title = 'Date'), yaxis = dict(title = 'Price, USD'))
 # fig = dict(data=data, layout=layout)
 # py.iplot(fig, filename='results_demonstrating1', image='png')
+
+rd_data = data
+rd_layout = layout
+
+def get_results_demonstrating1():
+    return json.dumps({ 'data': rd_data, 'layout': rd_layout }, cls=plotly.utils.PlotlyJSONEncoder)
 
 
 # # This function prepares random train/test split, 
