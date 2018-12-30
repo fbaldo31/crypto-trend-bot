@@ -5,4 +5,4 @@ from django.apps import AppConfig
 
 
 class LearningBotConfig(AppConfig):
-    name = 'learning_bot'
+    name = 'trend_bot'
