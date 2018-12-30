@@ -1,0 +1,21 @@
+<p>
+  Start !
+</p>
+<p>
+  <ngb-alert [dismissible]="true" *ngIf="errMsg !== ''">
+    <strong>Error!</strong> {{errMsg}}
+  </ngb-alert>
+</p>
+
+<!-- Step 2 -->
+<div *ngIf="step > 0" class="step">
+  <p><button class="btn btn-success" (click)="nextStep()">Start step 2 !</button></p>
+  <p *ngIf="isLoading && step === 1">Waitting for computting...</p>
+  <div id="step2-card" class="card"></div>
+</div>
+<!-- Step 1-->
+<div class="step">
+  <p *ngIf="step < 1"><button class="btn btn-primary" (click)="nextStep()">Start !</button></p>
+  <p *ngIf="isLoading && step === 0">Waitting for computting...</p>
+  <div id="step1-card" class="card"></div>
+</div>
