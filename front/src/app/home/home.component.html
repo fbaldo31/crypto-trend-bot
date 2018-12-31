@@ -1,22 +1,17 @@
 
-<p>
-  <ngb-alert [dismissible]="true" *ngIf="errMsg !== ''">
-    <strong>Error!</strong> {{errMsg}}
-  </ngb-alert>
-</p>
 
-<!-- debug -->
-isLoading: {{isLoading}}, step: {{step}}
+  <div class="row">
+    <a href [routerLink]="['/intro']" title="Get Strarted" class="col">
+      <div class="panel panel-default">
+        <div class="panel-heading">To understand the principle</div>
+        <div class="panel-body"> Get Strarted </div>
+      </div>
+    </a>
 
-<!-- Navigation -->
-<p><button class="btn btn-primary" (click)="nextStep()">Next step !</button></p>
-<!-- Step 1-->
-<div *ngFor="let item of graphs" class="step">
-  Step {{step}} Result:
-  {{item}}
-  <p *ngIf="isLoading && step === 0">Waitting for computting...</p>
-  <!-- Graph-->
-  <div class="card">
-    <plotly-plot [data]="item.data" [layout]="item.layout"></plotly-plot>
+    <a href [routerLink]="['/bot']" title="Get Strarted" class="col disabled">
+      <div class="panel panel-default">
+        <div class="panel-heading">Make your own predictions</div>
+        <div class="panel-body"> Go further </div>
+      </div>
+    </a>
   </div>
-</div>

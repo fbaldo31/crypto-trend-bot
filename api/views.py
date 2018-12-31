@@ -47,3 +47,9 @@ def step3(request):
 def step4(request):
     body = json.dumps(ltms.get_results_demonstrating1())
     return HttpResponse(body, content_type='application/json')
+
+# WIP
+def step5(request):
+    from . import pipeline
+    body = json.dumps(pipeline.runPipeline())
+    return HttpResponse(body, content_type='application/json')

@@ -23,6 +23,6 @@ urlpatterns = [
     url(r'^step2$', views.step2, name='step2'),
     url(r'^step3$', views.step3, name='step3'),
     url(r'^step4$', views.step4, name='step4'),
-    # url(r'^step5$', views.step4, name='step5'),
+    url(r'^step5$', views.step5, name='step5'),
     url(r'^admin/', admin.site.urls),
 ]

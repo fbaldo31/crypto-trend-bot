@@ -8,13 +8,17 @@ import { PlotlyModule } from 'angular-plotly.js';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { GraphComponent } from './graph/graph.component';
+import { IntroComponent } from './intro/intro.component';
+import { NavComponent } from './nav/nav.component';
+import { BotComponent } from './bot/bot.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    GraphComponent,
+    IntroComponent,
+    NavComponent,
+    BotComponent,
 
   ],
   imports: [
