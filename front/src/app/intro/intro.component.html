@@ -11,12 +11,14 @@ Step: {{step}}
 <!-- Navigation -->
 <p><button class="btn btn-primary" (click)="nextStep()">Next step !</button></p>
 
-<!-- Step x -->
-<div *ngFor="let item of graphs" class="step">
-  <p *ngIf="isLoading && step === 0">Waitting for computting...</p>
-  
-  <!-- Graph-->
-  <div class="card">
-    <plotly-plot [data]="item.data" [layout]="item.layout"></plotly-plot>
-  </div>
-</div>
+<ngb-tabset>
+  <ngb-tab title="Step: {{i}}" [disabled]="(step + 2) === i" *ngFor="let item of graphs; let i = index;" class="step">
+    <ng-template ngbTabContent>
+    <p *ngIf="isLoading && (step + 1) === i">Waitting for computting...</p>
+      <!-- Graph-->
+      <div class="card">
+        <plotly-plot [data]="item.data" [layout]="item.layout"></plotly-plot>
+      </div>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

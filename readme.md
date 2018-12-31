@@ -3,6 +3,8 @@
 ***This is a personal test to know more about machine learning 
 [WIP] Not usefull ATM***
 
+Based on this [tutotial](https://activewizards.com/blog/bitcoin-price-forecasting-with-deep-learning-algorithms/)
+
 ## Pre-requisites
 
 **Backend**
@@ -38,6 +40,8 @@ Assuming your env is `py36` `source activate py36`
 3. Run server `python3 manage.py runserver 8000 --nothreading --noreload`
 
 **Frontend**
+`cd front`
+
 `ng serve`
 
 ## Features

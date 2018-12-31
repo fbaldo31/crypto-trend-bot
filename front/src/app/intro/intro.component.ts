@@ -25,6 +25,10 @@ export class IntroComponent implements OnInit {
   }
 
   nextStep() {
+    if (this.step === 4) {
+      this.errMsg = 'Intro has finished';
+      return;
+    }
     this.isLoading = true;
     this.errMsg = '';
     this.http.get(this.API_URL + '/step' + (this.step + 1))
