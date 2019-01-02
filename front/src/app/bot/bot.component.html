@@ -1,3 +1,54 @@
-<p>
-  Available soon !
-</p>
+<h2 class="h2">Make Prevision</h2>
+<section class="contaner-fluid">
+<!-- Alert -->
+  <p class="alert-wrapper">
+    <ngb-alert [dismissible]="true" *ngIf="errMsg !== ''" (close)="errMsg = ''">
+      <strong>Error!</strong> {{errMsg}}
+    </ngb-alert>
+  </p>
+
+  <div class="pos-f-t">
+    <div *ngIf="addFormOpen">
+      <div class="bg-dark p-4">
+        <h5 class="text-white h4">Add a new prevision</h5>
+        <span class="text-muted">
+          <!-- Add prevision -->
+          <app-add-prevision (previsionAdded)="onPrevisionAdded($event)"></app-add-prevision>
+        </span>
+      </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+      <button class="btn btn-default text-white" type="button" (click)="addFormOpen = !addFormOpen">
+        Add
+      </button>
+    </nav>
+  </div>
+  
+  <!-- Previsions List -->
+  <section id="previsions">
+    <h3>Your previsions</h3>
+    <p *ngIf="!previsions.length">No prevision reistered yet, please add a new one.</p>
+
+    <ul *ngIf="previsions.length" class="list-group">
+      <li *ngFor="let item of previsions; index as i" class="list-item">
+      {{item|json}}
+        <!-- Prevision Card -->
+        <article class="card card-dark">
+          <header class="card-header"><h4>{{item.label}}</h4></header>
+          <div class="card-body">
+            <p>Crypto: {{item.crypto.name}}</p>
+            <p>Currency: {{item.crypto.currency}}</p>
+            <p>From: {{item.crypto.from}} days</p>
+            <p>Train model from: {{item.splitDate || ''}}</p>
+            
+          </div>
+          <footer class="card-footer">
+            <p class="btn btn-danger" (click)="removePrevision(i)"> Delete</p>
+            <p class="btn btn-primary" (click)="startPrevision(i)"> Start</p>
+          </footer>
+        </article>
+      </li>
+    </ul>
+
+  </section>
+</section>

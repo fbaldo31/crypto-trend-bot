@@ -1,18 +1,17 @@
-
-<p>
-  <ngb-alert [dismissible]="true" *ngIf="errMsg !== ''">
-    <strong>Error!</strong> {{errMsg}}
-  </ngb-alert>
-</p>
-
-<!-- debug -->
-Step: {{step}}
-
 <!-- Navigation -->
-<p><button class="btn btn-primary" (click)="nextStep()">Next step !</button></p>
+<div class="container">
 
+<div class="row-inverse">
+  <button class="btn btn-primary" (click)="nextStep()">{{ step === 0 ? 'Start !' : 'Next step !'}}</button>
+  <p class="alert-wrapper">
+    <ngb-alert [dismissible]="true" *ngIf="errMsg !== ''" (close)="errMsg = ''">
+      <strong>Error!</strong> {{errMsg}}
+    </ngb-alert>
+  </p>
+</div>
+</div>
 <ngb-tabset>
-  <ngb-tab title="Step: {{i}}" [disabled]="(step + 2) === i" *ngFor="let item of graphs; let i = index;" class="step">
+  <ngb-tab title="Step: {{i + 1}}" [disabled]="(step + 2) === i" *ngFor="let item of graphs; let i = index;" class="step">
     <ng-template ngbTabContent>
     <p *ngIf="isLoading && (step + 1) === i">Waitting for computting...</p>
       <!-- Graph-->

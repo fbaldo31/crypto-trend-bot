@@ -25,7 +25,7 @@ Based on this [tutotial](https://activewizards.com/blog/bitcoin-price-forecastin
 
 ## Settings
 
-Replace <YOUR_API_KEY> in `api/ltms.py` with your own, got on [cryptocompare](https://min-api.cryptocompare.com)
+Replace <YOUR_API_KEY> in `api/ltms.py` and in `front/src/app/services/crypto.service.ts` with your own, got on [cryptocompare](https://min-api.cryptocompare.com)
 
 **1.Create a python3.6 environnment**
 

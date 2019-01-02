@@ -1,3 +1,4 @@
+import { ICryptoTrendData } from './Crypto';
 /**
  * @example
  * let graph = {
@@ -9,6 +10,6 @@
  *  }
  */
 export interface IGraph {
-    data: any[];
+    data: ICryptoTrendData[];
     layout: any;
 }

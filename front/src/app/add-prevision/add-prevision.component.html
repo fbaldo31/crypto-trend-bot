@@ -1,0 +1,35 @@
+<form [formGroup]="addPrevisionForm" (ngSubmit)="onSubmitPrevisionForm()" class="form-horinzontal row">
+  
+  <div class="form-group col-3">
+    <label class="control-label">Label (to retrive your prevision)</label>
+    <input class="form-control" type="text" formControlName="previsionLabel">
+  </div>
+
+  <div class="form-group col-3">
+    <label class="control-label">Crypto</label>
+    <select  formControlName="cryptoName" class="form-control disabled">
+      <option value ="BTC" selected>Bitcoin</option>
+    </select>
+  </div>
+
+  <div class="form-group col-3">
+    <label class="control-label">Currency</label>
+    <select formControlName="currency" class="form-control">
+      <option value ="EUR" selected>€</option>
+      <option value ="USD">€</option>
+    </select>
+  </div>
+
+  <div class="form-group col-3">
+    <label class="control-label">From</label>
+    <input class="form-control"  type="number" formControlName="from" value ="365">
+  </div>
+
+  <div class="form-group col-3">
+    <label class="control-label">Trainning date (The date used to split the model for trainning data set)</label>
+    <input class="form-control"  type="text" formControlName="splitDate" value ="2018-10-01" diabled="true">
+  </div>
+
+  <button class="btn btn-default col-3" type="submit">Send</button>
+
+</form>
