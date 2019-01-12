@@ -1,17 +1,31 @@
-
-
-  <div class="row">
-    <a href [routerLink]="['/intro']" title="Get Strarted" class="col">
-      <div class="panel panel-default">
-        <div class="panel-heading">To understand the principle</div>
-        <div class="panel-body"> Get Strarted </div>
+<div class="container-fluid">
+  <main class="bd-masthead" id="content" role="main">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-6 mx-auto col-md-6 order-md-2">
+          <img alt="Logo" src="assets/img/android-bitcoin.png" width="400" >
+        </div>
+        <div class="col-md-6 order-md-1 text-center text-md-left pr-md-5">
+          <h1 class="mb-3 bd-text-purple-bright">Trend Bot</h1>
+          <p class="lead">
+            A machine learning project to make previsions on cryptocurrencies trend.
+          </p>
+          <p class="lead mb-4">
+            In the Get Started part you will get some information on how it works. In the second part you can try to do some predictions. Currently, the dataset is loaded locally, so only bitcoin in EUR is available.
+          </p>
+          <div class="row mx-n2">
+            <div class="col-md px-2">
+              <a href [routerLink]="['/intro']" title="Get Strarted" class="btn btn-lg btn-bd-primary w-100 mb-3">Get started</a>
+            </div>
+            <div class="col-md px-2">
+              <a href [routerLink]="['/bot']" title="Get Strarted" class="btn btn-lg btn-outline-secondary w-100 mb-3">Go Further</a>
+            </div>
+          </div>
+          <p class="text-muted mb-0">
+            Currently v0.0.1
+          </p>
+        </div>
       </div>
-    </a>
-
-    <a href [routerLink]="['/bot']" title="Get Strarted" class="col disabled">
-      <div class="panel panel-default">
-        <div class="panel-heading">Make your own predictions</div>
-        <div class="panel-body"> Go further </div>
-      </div>
-    </a>
-  </div>
+    </div>
+  </main>
+</div>

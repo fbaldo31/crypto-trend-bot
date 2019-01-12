@@ -1,0 +1,69 @@
+<p>
+  add-prevision works!
+</p>
+<form [formGroup]="addPrevisionForm" (ngSubmit)="onSubmitPrevisionForm()" class="form-horinzontal row">
+<!-- Alerts -->
+  <div *ngIf="alerts.length" class="alert-wrapper col-12">
+    <p *ngFor="let a of alerts; let i = index">
+      <ngb-alert [dismissible]="true" (close)="closeAlert(i)">
+        <strong>{{a.type}}!</strong> {{a.message}}
+      </ngb-alert>
+    </p>
+  </div>
+  <div class="form-group col-3">
+    <label class="control-label">Label (to retrive your prevision)</label>
+    <input class="form-control" type="text" formControlName="label">
+  </div>
+
+  <div class="form-group col-3">
+    <label class="control-label">Crypto</label>
+    <select formControlName="cryptoName" class="form-control disabled">
+      <option value ="BTC" selected>Bitcoin</option>
+    </select>
+  </div>
+
+  <div class="form-group col-3">
+    <label class="control-label">Currency</label>
+    <select formControlName="currency" class="form-control">
+      <option value ="EUR" selected>€</option>
+      <option value ="USD">$</option>
+    </select>
+  </div>
+
+  <!-- Dates -->
+  <div class="form-group col-6">
+    <label class="control-label">Trainning start date</label>
+      <!-- 1 -->
+      <input class="form-control" value="2016-01-01" type="text" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
+             name="dp" formControlName="trainStartDate">
+     
+    <small id="splitDateHelp" class="form-text text-muted">Basically the older one: 2016-01-01.</small>
+  </div>
+  <div class="form-group col-6">
+    <label class="control-label">Trainning end date</label>
+      <!-- 2 -->
+      <input class="form-control" value="2018-12-31" type="text" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
+             name="dp" formControlName="trainEndDate">
+     
+    <small id="splitDateHelp" class="form-text text-muted">A recent date like the end of last month.</small>
+  </div>
+  <div class="form-group col-6">
+    <label class="control-label">Prevision start date</label>
+      <!-- 3 -->
+      <input class="form-control" value="2017-10-01" type="text" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
+             name="dp" formControlName="testStartDate">
+     
+    <small id="splitDateHelp" class="form-text text-muted">The day for start the prevision.</small>
+  </div>
+  <div class="form-group col-6">
+    <label class="control-label">Trainning date</label>
+      <!-- 4 -->
+      <input class="form-control" value="2017-10-01" type="text" pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
+             name="dp" formControlName="testEndDate">
+     
+    <small id="splitDateHelp" class="form-text text-muted">30 days for a prevision is a good starting point.</small>
+  </div>
+
+  <button class="btn btn-secondary col-6 text-white" type="submit">Send</button>
+
+</form>

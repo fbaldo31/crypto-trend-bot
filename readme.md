@@ -7,7 +7,8 @@ Based on this [tutotial](https://activewizards.com/blog/bitcoin-price-forecastin
 
 ## Pre-requisites
 
-**Backend**
+### Backend
+
 - Python 3.7
 - anaconda 3
 - slicklearn and all its required dependencies
@@ -19,13 +20,16 @@ Based on this [tutotial](https://activewizards.com/blog/bitcoin-price-forecastin
 - keras
 - plotly
 
-**Frontend**
+### Frontend
+
 - Node.js
 - @angular/cli (global)
 
 ## Settings
 
-Replace <YOUR_API_KEY> in `api/ltms.py` with your own, got on [cryptocompare](https://min-api.cryptocompare.com)
+1. Get data [here](https://www.kaggle.com/mczielinski/bitcoin-historical-data/data)
+2. Rename the file to data.txt
+3. Put it at project root
 
 **1.Create a python3.6 environnment**
 

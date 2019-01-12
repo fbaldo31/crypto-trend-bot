@@ -1,3 +1,79 @@
-<p>
-  Available soon !
-</p>
+<main class="container-fluid">
+  <!-- Alert -->
+  <p class="alert-wrapper">
+    <ngb-alert [dismissible]="true" *ngIf="errMsg !== ''" (close)="errMsg = ''">
+      <strong>Error!</strong> {{errMsg}}
+    </ngb-alert>
+    <ngb-alert [dismissible]="true" *ngIf="successMsg !== ''" (close)="successMsg = ''">
+      <strong>Sucess!</strong> {{successMsg}}
+    </ngb-alert>
+  </p>
+  <header class="container">
+    <h2 class="h2">Make Prevision</h2>
+    <div *ngIf="addFormOpen">
+      <div class="bg-dark p-4">
+        <h3 class="text-white h4">Add a new prevision</h3>
+        <span class="text-muted">
+          <!-- Add prevision -->
+          <app-add-prevision (previsionAdded)="onPrevisionAdded($event)"></app-add-prevision>
+        </span>
+      </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+      <button class="btn btn-default text-white" type="button" (click)="addFormOpen = !addFormOpen">
+        {{!addFormOpen ? 'Add' : 'Close'}}
+      </button>
+    </nav>
+    
+  </header>
+  
+  <!-- Previsions List -->
+  <section id="previsions">
+    <h3>Your previsions</h3>
+    <p *ngIf="!previsions.length">No prevision reistered yet, please add a new one.</p>
+
+    <ul *ngIf="previsions.length" class="list-group">
+        <ngb-tabset>
+          <ngb-tab title="{{item.label}}" [disabled]="(step + 2) === i" *ngFor="let item of previsions; index as i" class="step">
+            <li class="list-item">
+            <ng-template ngbTabContent>
+            <!-- Prevision Card -->
+            <article class="card card-dark">
+              <header class="row card-header">
+                <p>Crypto: {{item.crypto.name}}</p>
+                <p>Currency: {{item.crypto.currency}}</p>
+                <p>Train model from: {{item.trainStartDate || ''}}</p>
+                <p>Train model to: {{item.trainEndDate || ''}}</p>
+                <p>Test model from: {{item.testStartDate || ''}}</p>
+                <p>Test model to: {{item.testEndDate || ''}}</p>
+              </header>
+              <div class="card-body">
+                <div *ngIf="isLoading" class="spinner-border text-primary" role="status">
+                  <span class="sr-only">Waitting for computation...</span>
+                </div>
+                <!-- Graph -->
+                <ngb-tabset>
+                  <ngb-tab title="Result" *ngIf="item.graph" class="step">
+                    <ng-template ngbTabContent>
+                      
+                      <div class="card">
+                        <plotly-plot [data]="item.graph.data" [layout]="item.graph.layout"></plotly-plot>
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+                </ngb-tabset>
+              </div>
+              <footer class="card-footer">
+                <p class="btn btn-danger" (click)="removePrevision(i)"> Delete</p>
+                <p class="btn btn-primary" (click)="startPrevision(i)"> Start</p>
+              </footer>
+            </article>
+            </ng-template>
+            </li>
+          </ngb-tab>
+        </ngb-tabset>
+      
+    </ul>
+
+  </section>
+</main>

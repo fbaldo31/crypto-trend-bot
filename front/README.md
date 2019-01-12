@@ -1,27 +1,55 @@
-# Front
+# trend-bot
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
+***This is a personal test to know more about machine learning 
+[WIP] Not usefull ATM***
 
-## Development server
+Based on this [tutotial](https://activewizards.com/blog/bitcoin-price-forecasting-with-deep-learning-algorithms/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Pre-requisites
 
-## Code scaffolding
+### Backend
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Python 3.7
+- anaconda 3
+- slicklearn and all its required dependencies
+- matplotlib
+- django
+- seaborn
+- pil
+- lxml
+- keras
+- plotly
 
-## Build
+### Frontend
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- Node.js
+- @angular/cli (global)
 
-## Running unit tests
+## Settings
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Get data [here](https://www.kaggle.com/mczielinski/bitcoin-historical-data/data)
+2. Rename the file to data.txt
+3. Put it at project root
 
-## Running end-to-end tests
+**1.Create a python3.6 environnment**
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+## Run
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+**Backend**
+
+1. Activate your Python environment:
+Assuming your env is `py36` `source activate py36`
+2. Open Anaconda Navigator to install the required dependencies `anaconda-navigator`
+3. Run server `python3 manage.py runserver 8000 --nothreading --noreload`
+
+**Frontend**
+`cd front`
+
+`ng serve`
+
+## Features
+
+1. Get the BTC (can be either other crypto) trend over the past year.
+2. Train the model
+3. Display results in charts

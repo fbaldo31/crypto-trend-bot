@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PlotlyModule } from 'angular-plotly.js';
@@ -12,6 +13,9 @@ import { IntroComponent } from './intro/intro.component';
 import { NavComponent } from './nav/nav.component';
 import { BotComponent } from './bot/bot.component';
 
+import { CryptoService } from './services/crypto.service';
+import { AddPrevisionComponent } from './add-prevision/add-prevision.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +23,7 @@ import { BotComponent } from './bot/bot.component';
     IntroComponent,
     NavComponent,
     BotComponent,
+    AddPrevisionComponent,
 
   ],
   imports: [
@@ -26,9 +31,10 @@ import { BotComponent } from './bot/bot.component';
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    PlotlyModule
+    FormsModule, ReactiveFormsModule,
+    PlotlyModule,
   ],
-  providers: [],
+  providers: [ CryptoService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

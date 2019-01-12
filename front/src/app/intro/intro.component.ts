@@ -12,7 +12,7 @@ export class IntroComponent implements OnInit {
 
   readonly API_URL = 'http://localhost:8000';
   graphs: IGraph[];
-  lastYearData;
+  successMsg = '';
   isLoading = false;
   step = 0;
   errMsg = '';

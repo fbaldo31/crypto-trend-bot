@@ -28,6 +28,9 @@ API ENDPOINTS
 def index(request):
     return HttpResponse("Welcome")
 
+def intro(request):
+    return ltms.start('file')
+
 def step1(request):
     body = json.dumps(ltms.get_seasonal_decompose())
     return HttpResponse(body, content_type='application/json')
@@ -49,7 +52,11 @@ def step4(request):
     return HttpResponse(body, content_type='application/json')
 
 # WIP
-def step5(request):
+def prevision(request):
     from . import pipeline
-    body = json.dumps(pipeline.runPipeline())
+    train1 = request.GET['1start']
+    train2 = request.GET['1end']
+    test1 = request.GET['2start']
+    test2 = request.GET['2end']
+    body = json.dumps(pipeline.runPipeline(train1, train2, test1, test2))
     return HttpResponse(body, content_type='application/json')

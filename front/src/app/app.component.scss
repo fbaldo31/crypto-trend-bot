@@ -1,13 +1,8 @@
 header {
-    text-align:center;
-    // background: url('../assets//img/bitcoin.png') center center/ 8em no-repeat;
-    height: 8em;
-    line-height: 8em;
-    vertical-align: middle;
-    & > div {
-        opacity: 0.5;
-        & > img {
-            width: 8em;
-        }
-    }
+    min-height: 4em;
+}
+
+main {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
