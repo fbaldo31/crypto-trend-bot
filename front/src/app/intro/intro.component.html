@@ -1,24 +1,33 @@
+<section class="container-fluid">
+  <h2>Understand machine learning</h2>
+  <p>Please follow the the steps for trainning a data model.</p>
+  <div>
+    <ngb-alert [dismissible]="true" *ngIf="errMsg !== ''">
+      <strong>Error!</strong> {{errMsg}}
+    </ngb-alert>
+  </div>
 
-<p>
-  <ngb-alert [dismissible]="true" *ngIf="errMsg !== ''">
-    <strong>Error!</strong> {{errMsg}}
-  </ngb-alert>
-</p>
+  <!-- Navigation -->
+  <p>
+    <button class="btn btn-primary btn-lg btn-block" (click)="nextStep()">
+      <span>{{step === 0 ? 'Start !' : 'Next step'}} </span>
+      <!-- Loader -->
+      <span *ngIf="isLoading" class="spinner-border text-primary" role="status">
+        <span class="sr-only">Waitting for computation...</span>
+      </span>
+    </button>
+  </p>
 
-<!-- debug -->
-Step: {{step}}
-
-<!-- Navigation -->
-<p><button class="btn btn-primary" (click)="nextStep()">Next step !</button></p>
-
-<ngb-tabset>
-  <ngb-tab title="Step: {{i}}" [disabled]="(step + 2) === i" *ngFor="let item of graphs; let i = index;" class="step">
-    <ng-template ngbTabContent>
-    <p *ngIf="isLoading && (step + 1) === i">Waitting for computting...</p>
-      <!-- Graph-->
-      <div class="card">
-        <plotly-plot [data]="item.data" [layout]="item.layout"></plotly-plot>
-      </div>
-    </ng-template>
-  </ngb-tab>
-</ngb-tabset>
+  <ngb-tabset>
+    <ngb-tab title="Step: {{i + 1}}"  *ngFor="let item of graphs; let i = index;" class="step">
+      <ng-template ngbTabContent>
+        
+        <!-- Graph-->
+        <div class="card-content">
+          <h3 class="h6" *ngIf="stepText[i]">{{stepText[i]}}</h3>
+          <plotly-plot [data]="item.data" [layout]="item.layout"></plotly-plot>
+        </div>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</section>

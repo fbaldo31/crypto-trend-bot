@@ -23,8 +23,8 @@ export class CryptoService {
     return this.http.get(url);
   }
 
-  public sendServerRequest(path: string, params: string): Observable<any> {
-    console.log(params);
-    return this.http.get(this.SERVER_URL + '/' + path + '?' + params);
+  public sendServerRequest(path: string, params: string): Promise<any> {
+    // console.log(params);
+    return this.http.get(this.SERVER_URL + '/' + path + '?' + params).toPromise();
   }
 }

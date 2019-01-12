@@ -12,19 +12,24 @@
     <h2 class="h2">Make Prevision</h2>
     <div *ngIf="addFormOpen">
       <div class="bg-dark p-4">
+        <!-- Close -->
+        <button type="button" class="close" aria-label="Close" (click)="addFormOpen = !addFormOpen">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h3 class="text-white h4">Add a new prevision</h3>
+          
+        <!-- Add prevision form -->
         <span class="text-muted">
-          <!-- Add prevision -->
           <app-add-prevision (previsionAdded)="onPrevisionAdded($event)"></app-add-prevision>
         </span>
       </div>
     </div>
+    <!-- Close -->
     <nav class="navbar navbar-dark bg-dark">
       <button class="btn btn-default text-white" type="button" (click)="addFormOpen = !addFormOpen">
         {{!addFormOpen ? 'Add' : 'Close'}}
       </button>
     </nav>
-    
   </header>
   
   <!-- Previsions List -->

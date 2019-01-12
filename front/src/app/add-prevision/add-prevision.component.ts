@@ -28,24 +28,13 @@ export class AddPrevisionComponent implements OnInit {
   }
 
   onSubmitPrevisionForm() {
-    console.warn(this.addPrevisionForm.value);
+    // console.warn(this.addPrevisionForm.value);
     if (this.addPrevisionForm.valid) {
       const data = this.addPrevisionForm.value;
-      // const month = data.splitDate.month.length === 1 ? '0' + data.splitDate.month : data.splitDate.month;
-      // const day = data.splitDate.day.length === 1 ? '0' + data.splitDate.day : data.splitDate.day;
-      // data.splitDate = this.formatDate(data);
-      // data.splitDate = data.splitDate.year + '-' + month + '-' + day;
-      // if (data.splitDate instanceof Date) {
-        console.log(data.splitDate);
         this.previsionAdded.emit(data);
-      // } else {
-      //   this.alerts.push({ type: 'Error', message: 'Invalid Date' });
-      // }
-
     } else {
       for (const error in this.addPrevisionForm.errors) {
         if (this.addPrevisionForm.errors.hasOwnProperty(error)) {
-          console.error(error);
           this.alerts.push({ type: 'Error', message: error });
         }
       }

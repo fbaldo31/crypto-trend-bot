@@ -3,6 +3,7 @@ import { HttpResponse } from '@angular/common/http';
 import { CryptoService } from '../services/crypto.service';
 import Prevision, { IPrevisionOpts } from '../models/Prevision';
 import { IGraph } from '../models/IGraph';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-bot',
@@ -75,13 +76,14 @@ export class BotComponent implements OnInit {
     const tsEnd = this.previsions[index].testEndDate;
 
     this.btc.sendServerRequest('prevision', `1start=${tStart}&1end=${tEnd}&2start=${tsStart}&2end=${tsEnd}`)
-      .subscribe((res: any) => {
-        this.handleResponse(res).then((data: IGraph) => {
-          this.previsions[index].graph = data;
-          this.savePrevisions();
-        }, (err: Error) => this.handleError(err))
-        .catch(this.handleError);
-      });
+      .then((res: any) => {
+        return this.handleResponse(res);
+      })
+      .then((data: IGraph) => {
+        this.previsions[index].graph = data;
+        this.savePrevisions();
+      })
+      .catch(this.handleError);
   }
 
   async handleResponse(res: any) {

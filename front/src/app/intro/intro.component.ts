@@ -16,6 +16,10 @@ export class IntroComponent implements OnInit {
   isLoading = false;
   step = 0;
   errMsg = '';
+  stepText = [
+    'First we analyse the influence by such factors as trend or seasonality.',
+    'The model has been trainned and we can can compare the Train Loss and the Test loss.'
+  ];
 
   constructor(private http: HttpClient) { }
 
