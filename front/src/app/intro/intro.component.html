@@ -19,12 +19,12 @@
   </p>
 
   <ngb-tabset>
-    <ngb-tab title="Step: {{i + 1}}"  *ngFor="let item of graphs; let i = index;" class="step">
+    <ngb-tab title="Step: {{i + 1}}" *ngFor="let item of graphs; let i = index;" class="step">
       <ng-template ngbTabContent>
         
         <!-- Graph-->
         <div class="card-content">
-          <h3 class="h6" *ngIf="stepText[i]">{{stepText[i]}}</h3>
+          <h3 class="h5 text-center" *ngIf="stepText[i]">{{stepText[i]}}</h3>
           <plotly-plot [data]="item.data" [layout]="item.layout"></plotly-plot>
         </div>
       </ng-template>

@@ -3,8 +3,5 @@ api_key.txt
 api/__pycache__
 server/__pycache__
 old
-Dockerfile
-start-server.sh
 .slugignore
-Pipfile
 data.csv

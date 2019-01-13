@@ -12,4 +12,5 @@ import { ICryptoTrendData } from './Crypto';
 export interface IGraph {
     data: ICryptoTrendData[];
     layout: any;
+    active?: boolean;
 }
