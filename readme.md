@@ -5,21 +5,13 @@
 
 Based on this [tutotial](https://activewizards.com/blog/bitcoin-price-forecasting-with-deep-learning-algorithms/)
 
-## Run Server with Docker
-
-1. First build the image: `docker build . -t trend_bot`
-
-2. Run the container `docker run --name trend_bot -p 8000:8000 trend_bot`
- next time you can start it with `docker start trend_bot`
-
-or Follow the pre-requisites to setup your environment.
-
 ## Pre-requisites
 
 ### Backend
 
-- Python 3.7
-- anaconda 3
+Create a python3.5+ environnment with the following packages 
+(or run it with docker) :
+
 - slicklearn and all its required dependencies
 - matplotlib
 - django
@@ -33,6 +25,7 @@ or Follow the pre-requisites to setup your environment.
 
 - Node.js
 - @angular/cli (global)
+- Yarn
 
 ## Settings
 
@@ -40,25 +33,40 @@ or Follow the pre-requisites to setup your environment.
 2. Rename the file to data.txt
 3. Put it at project root
 
-**1.Create a python3.6 environnment**
-
-
 ## Run
 
-**Backend**
+### Back
 
-1. Activate your Python environment:
-Assuming your env is `py36` `source activate py36`
+1. Activate your Python environment: Assuming your env is `py36` `source activate py36`
 2. Open Anaconda Navigator to install the required dependencies `anaconda-navigator`
 3. Run server `python3 manage.py runserver 8000 --nothreading --noreload`
 
-**Frontend**
-`cd front`
+### Front
 
-`ng serve`
+1. Install depencencies `cd front && yarn`
+2. Run `ng serve`
 
 ## Features
 
 1. Get the BTC (can be either other crypto) trend over the past year.
 2. Train the model
 3. Display results in charts
+
+## Run Server with Docker
+
+1. Add the data file as decribed before
+2. First build the image: `docker build . -t trend_bot`
+3. Run the container `docker run --name trend_bot -p 8000:8000 trend_bot`
+
+***note1:*** next time you can start it with `docker start trend_bot`
+
+***note2:*** If the container freeze:
+
+```bash
+docker stop trend_bot
+docker start trend_bot
+docker exec -it trend_bot bash
+python3 /manage.py runserver 0.0.0.0:8000 --nothreading --noreload
+```
+
+or Follow the pre-requisites to setup your environment.
