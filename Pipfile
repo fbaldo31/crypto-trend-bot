@@ -7,4 +7,4 @@ plotly==3.4.2
 matplotlib
 keras
 statsmodels
-tensorflow
+jupyter
