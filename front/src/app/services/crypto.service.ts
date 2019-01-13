@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CryptoService {
 
-  readonly SERVER_URL = 'http://localhost:8000';
+  readonly SERVER_URL = 'http://0.0.0.0:8000';
   public CRYPTO = 'BTC';
   public from = 365;
   public currency = 'EUR';

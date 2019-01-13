@@ -10,7 +10,7 @@ import { IGraph } from '../models/IGraph';
 })
 export class IntroComponent implements OnInit {
 
-  readonly API_URL = 'http://localhost:8000';
+  readonly API_URL = 'http://0.0.0.0:8000';
   graphs: IGraph[];
   successMsg = '';
   isLoading = false;

@@ -3,7 +3,6 @@ import { HttpResponse } from '@angular/common/http';
 import { CryptoService } from '../services/crypto.service';
 import Prevision, { IPrevisionOpts } from '../models/Prevision';
 import { IGraph } from '../models/IGraph';
-import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-bot',

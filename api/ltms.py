@@ -37,7 +37,7 @@ ALL_RATES = []
 def getStats(url):
     res = urlopen(url)
     body = res.read()
-    data = json.loads(body)
+    data = json.loads(body.decode('utf-8'))
     return data['Data']
 
 jsonData = getStats(LAST_YEAR_TREND)

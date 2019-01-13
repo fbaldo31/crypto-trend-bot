@@ -13,7 +13,5 @@ COPY ./server /server
 COPY ./manage.py /manage.py
 COPY ./start-server.sh /start-server.sh
 
-EXPOSE 8080
-
 # Start the server
 CMD [ "/bin/bash", "/start-server.sh" ]

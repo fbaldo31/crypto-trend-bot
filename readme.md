@@ -9,7 +9,8 @@ Based on this [tutotial](https://activewizards.com/blog/bitcoin-price-forecastin
 
 1. First build the image: `docker build . -t trend_bot`
 
-2. Run the container `docker run --name trend_bot -p 8080:8080 trend_bot`
+2. Run the container `docker run --name trend_bot -p 8000:8000 trend_bot`
+ next time you can start it with `docker start trend_bot`
 
 or Follow the pre-requisites to setup your environment.
 
