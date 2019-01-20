@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -23,8 +23,13 @@ export class CryptoService {
     return this.http.get(url);
   }
 
-  public sendServerRequest(path: string, params: string): Promise<any> {
-    // console.log(params);
-    return this.http.get(this.SERVER_URL + '/' + path + '?' + params).toPromise();
+  public async sendServerRequest(path: string, params: string): Promise<any> {
+    return await new Promise((resolve, reject) => {
+      try {
+        resolve(this.http.get(this.SERVER_URL + '/' + path + '?' + params).toPromise());
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 }

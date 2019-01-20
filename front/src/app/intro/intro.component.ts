@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { IGraph } from '../models/IGraph';
+import { ApiService } from "../services/api.service";
 
 @Component({
   selector: 'app-intro',
@@ -10,7 +10,6 @@ import { IGraph } from '../models/IGraph';
 })
 export class IntroComponent implements OnInit {
 
-  readonly API_URL = 'http://0.0.0.0:8000';
   graphs: IGraph[];
   successMsg = '';
   isLoading = false;
@@ -21,7 +20,7 @@ export class IntroComponent implements OnInit {
     'The model has been trainned and we can can compare the Train Loss and the Test loss.'
   ];
 
-  constructor(private http: HttpClient) { }
+  constructor(private api: ApiService) { }
 
   ngOnInit() {
     this.graphs = [];
@@ -29,23 +28,20 @@ export class IntroComponent implements OnInit {
   }
 
   nextStep() {
+    this.errMsg = '';
+    this.isLoading = true;
     if (this.step === 4) {
       this.errMsg = 'Intro has finished';
       return;
     }
-    this.isLoading = true;
-    this.errMsg = '';
-    this.http.get(this.API_URL + '/step' + (this.step + 1))
-      .subscribe((res: any) => {
-        this.handleResponse(res)
-          .then((data: IGraph) => this.graphs.push(data))
-          .catch((err: Error) => this.errMsg = err.message);
-      });
+    this.api.startStep(this.step + 1)
+    .then((data: string) => {
+      this.step++;
+      this.graphs.push(JSON.parse(data) as IGraph);
+      this.isLoading = false;
+    })
+    .catch((err: Error) => this.errMsg = 'Server error, please check your internet connexion and retry.');
   }
-
-  // nextStep() {
-  //   this.addImage(this.step + 1);
-  // }
 
   // addImage(step: number): void {
   //   this.isLoading = true;
@@ -58,25 +54,4 @@ export class IntroComponent implements OnInit {
   //   };
   //   this.render.appendChild(this.render.selectRootElement('#step' + step + '-card'), this.fig1);
   // }
-
-  async handleResponse(res: any) {
-    let graphData: IGraph;
-    try {
-      graphData = JSON.parse(res);
-    } catch (err) {
-      this.errMsg = err.message;
-      this.isLoading = false;
-      console.error(err);
-      return;
-    }
-    this.step++;
-    this.isLoading = false;
-    return await graphData;
-  }
-
-  handleError(err: Error) {
-    this.errMsg = err.message || 'Error Uknown';
-    console.error(err);
-  }
-
 }

@@ -14,6 +14,7 @@ import { NavComponent } from './nav/nav.component';
 import { BotComponent } from './bot/bot.component';
 
 import { CryptoService } from './services/crypto.service';
+import { ApiService } from './services/api.service';
 import { AddPrevisionComponent } from './add-prevision/add-prevision.component';
 
 @NgModule({
@@ -34,7 +35,7 @@ import { AddPrevisionComponent } from './add-prevision/add-prevision.component';
     FormsModule, ReactiveFormsModule,
     PlotlyModule,
   ],
-  providers: [ CryptoService ],
+  providers: [ CryptoService, ApiService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
