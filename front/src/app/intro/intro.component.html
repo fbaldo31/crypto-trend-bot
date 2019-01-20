@@ -1,23 +1,33 @@
 <section class="container-fluid">
-  <h2>Understand machine learning</h2>
-  <p>Please follow the the steps for trainning a data model.</p>
-  <div>
+  <!-- Alerts -->
+  <div class="alert-wrapper">
     <ngb-alert [dismissible]="true" *ngIf="errMsg !== ''">
       <strong>Error!</strong> {{errMsg}}
     </ngb-alert>
   </div>
 
-  <!-- Navigation -->
-  <p>
-    <button class="btn btn-primary btn-lg btn-block" (click)="nextStep()">
-      <span>{{step === 0 ? 'Start !' : 'Next step'}} </span>
-      <!-- Loader -->
-      <span *ngIf="isLoading" class="spinner-border text-primary" role="status">
-        <span class="sr-only">Waitting for computation...</span>
-      </span>
-    </button>
-  </p>
-
+  <!-- Intro -->
+  <header class="jumbotron">
+    <h2>Understand machine learning</h2>
+    <p class="lead">
+      The Cross Validation method used is "Holdout".
+      Its principle: split our data in 2 sets, the first for trainning, the second to test and evaluate it.
+      Basically, a ratio around 80% for trainning and 20% for testing.
+    </p>
+    <hr class="my-4">
+    <p>Please click on the button bellow to run the introduction steps.</p>
+    
+    <!-- Navigation -->
+    <p class="lead">
+      <button class="btn btn-primary btn-lg" (click)="nextStep()">
+        {{step === 0 ? 'Start ! ' : 'Next step '}}
+        <!-- Loader -->
+        <span *ngIf="isLoading" class="spinner-border text-white" role="status">
+          <span class="sr-only">Waitting for computation...</span>
+        </span>
+      </button>
+    </p>
+  </header>
   <ngb-tabset>
     <ngb-tab title="Step: {{i + 1}}" *ngFor="let item of graphs; let i = index;" class="step">
       <ng-template ngbTabContent>

@@ -1,7 +1,7 @@
 api_key.txt
 .vscode
+reports
 api/__pycache__
 server/__pycache__
-old
 .slugignore
 data.csv

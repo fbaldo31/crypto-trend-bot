@@ -9,10 +9,15 @@ Based on this [tutotial](https://activewizards.com/blog/bitcoin-price-forecastin
 
 ### Backend
 
-Create a python3.5+ environnment with the following packages 
-(or run it with docker) :
+You have 2 options :
 
-- slicklearn and all its required dependencies
+- Run the server with docker
+- Follow the indications:
+
+1. Create a python3.5+ environment (can be done with anaconda3)
+2. Install the following packages. Can be done with Anaconda Navigator: `anaconda-navigator`
+
+- slicklearn
 - matplotlib
 - django
 - seaborn
@@ -38,8 +43,7 @@ Create a python3.5+ environnment with the following packages
 ### Back
 
 1. Activate your Python environment: Assuming your env is `py36` `source activate py36`
-2. Open Anaconda Navigator to install the required dependencies `anaconda-navigator`
-3. Run server `python3 manage.py runserver 8000 --nothreading --noreload`
+2. Run server `python3 manage.py runserver 8000 --nothreading --noreload`
 
 ### Front
 
