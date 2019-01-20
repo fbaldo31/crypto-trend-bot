@@ -58,7 +58,7 @@
                 </div>
                 <!-- Graph -->
                 <ngb-tabset>
-                  <ngb-tab title="Result" *ngIf="item.graph" class="step">
+                  <ngb-tab title="Graph" *ngIf="item.graph" class="step">
                     <ng-template ngbTabContent>
                       
                       <div class="card">
@@ -66,9 +66,23 @@
                       </div>
                     </ng-template>
                   </ngb-tab>
+                  <ngb-tab title="Stats" *ngIf="item.graph" class="step">
+                    <ng-template ngbTabContent>
+                       <aside *ngIf="item.graph.report">
+                        <p>Test RMSE: {{item.graph.report.testRMSE}}</p>
+                        <p>Average RMSE: {{item.graph.report.averageRMSE}}</p>
+                        <p>
+                          RMSE list: 
+                          <span class="badge badge-light" *ngFor="let rmse of item.graph.report.rmseList">{{rmse}}</span>
+                        </p>
+                        <p>New RMSE: {{item.graph.report.newRMSE}}</p>
+                        <p>Test SMAPE: {{item.graph.report.newRMSE}}</p>
+                      </aside>
+                    </ng-template>
+                  </ngb-tab>
                 </ngb-tabset>
               </div>
-              <footer class="card-footer">
+              <footer class="card-footer row">
                 <p class="btn btn-danger" (click)="removePrevision(i)"> Delete</p>
                 <p class="btn btn-primary" (click)="startPrevision(i)"> Start</p>
               </footer>

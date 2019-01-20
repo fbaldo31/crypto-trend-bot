@@ -60,6 +60,7 @@ def getData(mode):
 
 def prepareData(mode, trainStart, trainEnd, testS, testE):
     Daily_Price = getData(mode)
+    Daily_Price.isnull().values.any()
     Daily_Price.head()
     Daily_Price.tail()
     
@@ -218,7 +219,7 @@ def workflow(working_data, get_split, train_model, get_rmse,n_train = 250,n_test
 # This function is used to repeat the workflow ten times and to calculate average RMSE
 def cross_validate(working_data,get_split,train_model,get_rmse,workflow,n_train = 250,n_test = 50,look_back = 1):
     rmse_list = []
-    for i in range(2): #10
+    for i in range(10): #10
         print('Iteration:', i+1)
         RMSE, _, x = workflow(working_data, get_split, train_model, get_rmse, n_train, n_test, look_back)
         rmse_list.append(RMSE)
@@ -256,5 +257,7 @@ def runPipeline(*args):
 
     SMAPE = symmetric_mean_absolute_percentage_error(Y_test2_inverse, predictions_new)
 
+    report = { 'testRMSE': RMSE, 'averageRMSE': mean_rmse, 'rmseList': rmse_list, 'newRMSE': RMSE_new, 'SMAPE': SMAPE };
+
     print('Test SMAPE (percentage): %.3f' % SMAPE)
-    return json.dumps({ 'data': data, 'layout': layout }, cls=plotly.utils.PlotlyJSONEncoder)
+    return json.dumps({ 'data': data, 'layout': layout, 'report': report }, cls=plotly.utils.PlotlyJSONEncoder)

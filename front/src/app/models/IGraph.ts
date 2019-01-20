@@ -10,7 +10,16 @@ import { ICryptoTrendData } from './Crypto';
  *  }
  */
 export interface IGraph {
+    report?: IReport;
     data: ICryptoTrendData[];
     layout: any;
     active?: boolean;
+}
+
+export interface IReport {
+    testRMSE: number;
+    averageRMSE: number;
+    rmseList: number[];
+    newRMSE: number;
+    SMAPE: number;
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { IGraph } from '../models/IGraph';
-import { ApiService } from "../services/api.service";
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-intro',

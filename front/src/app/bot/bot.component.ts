@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { CryptoService } from '../services/crypto.service';
 import Prevision, { IPrevisionOpts } from '../models/Prevision';
 import { IGraph } from '../models/IGraph';
@@ -82,11 +82,11 @@ export class BotComponent implements OnInit {
         this.previsions[index].graph = data;
         this.savePrevisions();
       })
-      .catch(this.handleError);
+      .catch((res: Error|HttpErrorResponse) => this.handleError(res));
   }
 
   async handleResponse(res: any) {
-    if (res.status) {
+    if (res.status || res.headers && res.headers['Content-Type'] === 'text/html' ) {
       // No data: Error
       throw new Error('Something went wrong, please try again');
     }
@@ -96,17 +96,22 @@ export class BotComponent implements OnInit {
     } catch (err) {
       this.errMsg = err.message;
       this.isLoading = false;
-      console.error(err);
-      return;
+      throw err;
     }
     this.isLoading = false;
     return await graphData;
   }
 
-  handleError(err: Error) {
-    this.errMsg = err.message || 'Error Uknown';
-    console.error(err);
-    this.isLoading = false;
+  handleError(res: Error|HttpErrorResponse) {
+    if (res instanceof HttpErrorResponse) {
+      if (res.status && res.status === 500) {
+        this.errMsg = 'Please try again.';
+      }
+    } else {
+      this.errMsg = res.message || 'Error Uknown';
+      console.error(res);
+      this.isLoading = false;
+    }
   }
 
   /**
