@@ -5,6 +5,8 @@
 
 Based on this [tutotial](https://activewizards.com/blog/bitcoin-price-forecasting-with-deep-learning-algorithms/)
 
+[![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/fbaldo31/fbaldo31%2Fcrypto-trend-bot%2Fcrypto-trend-bot?branch=master&key=eyJhbGciOiJIUzI1NiJ9.NWM2MTFjNmMxMmE5NTYyZTZhYWQ3YTRl.S6H0kL3RuTkulI3shIONacgTBojrmumEo9peBrC4buw&type=cf-1)]( https://g.codefresh.io/pipelines/crypto-trend-bot/builds?repoOwner=fbaldo31&repoName=crypto-trend-bot&serviceName=fbaldo31%2Fcrypto-trend-bot&filter=trigger:build~Build;branch:master;pipeline:5c611d41f8862d6b3ec95638~crypto-trend-bot)
+
 ## Pre-requisites
 
 ### Backend
