@@ -8,3 +8,4 @@ matplotlib
 keras
 statsmodels
 jupyter
+django-cors-headers==2.5.0

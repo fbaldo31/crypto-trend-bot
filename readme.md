@@ -1,7 +1,6 @@
 # trend-bot
 
-***This is a personal test to know more about machine learning 
-[WIP]***
+***This is a personal test to know more about machine learning [WIP]***
 
 Based on this [tutotial](https://activewizards.com/blog/bitcoin-price-forecasting-with-deep-learning-algorithms/)
 
@@ -37,8 +36,9 @@ You have 2 options :
 ## Settings
 
 1. Get data [here](https://www.kaggle.com/mczielinski/bitcoin-historical-data/data)
-2. Rename the file to data.txt
-3. Put it at project root
+or [here](https://www.kaggle.com/kognitron/zielaks-bitcoin-historical-data-wo-nan)
+
+2. Rename the file to data.csv and replace the placeholder file at projet root
 
 ## Run
 

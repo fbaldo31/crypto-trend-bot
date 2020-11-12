@@ -1,8 +1,25 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<header class="navbar navbar-expand bg-dark flex-column flex-md-row bd-navbar">
-  <!-- Main nav -->
-  <app-nav></app-nav>
-</header>
+<nb-layout>
 
-<!-- Pages -->
-<router-outlet></router-outlet>
+  <nb-layout-header fixed>
+    <!-- header -->
+    <a href [routerLink]="['/']">Trend bot</a>
+  </nb-layout-header>
+
+  <nb-layout-header subheader>
+    <!-- Main nav -->
+    <app-nav></app-nav>
+  </nb-layout-header>
+
+  <nb-layout-column>
+
+    
+    <!-- Pages -->
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+
+  <nb-layout-footer fixed>
+    <strong>Disclaimer : </strong>
+    This a personal project at test state only and is work-in-progress, so the previsions are extremely approximatives !
+  </nb-layout-footer>
+
+</nb-layout>
