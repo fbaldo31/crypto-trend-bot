@@ -38,8 +38,7 @@ You have 2 options :
 1. Get data [here](https://www.kaggle.com/mczielinski/bitcoin-historical-data/data)
 or [here](https://www.kaggle.com/kognitron/zielaks-bitcoin-historical-data-wo-nan)
 
-2. Rename the file to data.csv
-3. Put it at project root
+2. Rename the file to data.csv and replace the placeholder file at projet root
 
 ## Run
 
