@@ -37,62 +37,43 @@
     <h3>Your previsions</h3>
     <p *ngIf="!previsions.length">No prevision reistered yet, please add a new one.</p>
 
-    <ul *ngIf="previsions.length" class="list-group">
-        <ngb-tabset>
-          <ngb-tab title="{{item.label}}" [disabled]="(step + 2) === i" *ngFor="let item of previsions; index as i" class="step">
-            <li class="list-item">
-            <ng-template ngbTabContent>
-            <!-- Prevision Card -->
-            <article class="card card-dark">
-              <header class="row card-header">
-                <p>Crypto: {{item.crypto.name}}</p>
-                <p>Currency: {{item.crypto.currency}}</p>
-                <p>Train model from: {{item.trainStartDate || ''}}</p>
-                <p>Train model to: {{item.trainEndDate || ''}}</p>
-                <p>Test model from: {{item.testStartDate || ''}}</p>
-                <p>Test model to: {{item.testEndDate || ''}}</p>
-              </header>
-              <div class="card-body">
-                <div *ngIf="isLoading" class="spinner-border text-primary" role="status">
-                  <span class="sr-only">Waitting for computation...</span>
-                </div>
+    <nb-accordion *ngIf="previsions.length">
+      <nb-accordion-item *ngFor="let item of previsions; index as i" class="step">
+        <nb-accordion-item-header>{{item.label}}</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <nb-card>
+            <nb-card-header>
+              <p>Crypto: {{item.crypto.name}}</p>
+              <p>Currency: {{item.crypto.currency}}</p>
+              <p>Train model from: {{item.trainStartDate || ''}}</p>
+              <p>Train model to: {{item.trainEndDate || ''}}</p>
+              <p>Test model from: {{item.testStartDate || ''}}</p>
+              <p>Test model to: {{item.testEndDate || ''}}</p>
+            </nb-card-header>
+            <nb-card-body>
+              <nb-spinner *ngIf="isLoading"></nb-spinner>
+              <div *ngIf="item.graph">
                 <!-- Graph -->
-                <ngb-tabset>
-                  <ngb-tab title="Graph" *ngIf="item.graph" class="step">
-                    <ng-template ngbTabContent>
-                      
-                      <div class="card">
-                        <plotly-plot [data]="item.graph.data" [layout]="item.graph.layout"></plotly-plot>
-                      </div>
-                    </ng-template>
-                  </ngb-tab>
-                  <ngb-tab title="Stats" *ngIf="item.graph" class="step">
-                    <ng-template ngbTabContent>
-                       <aside *ngIf="item.graph.report">
-                        <p>Test RMSE: {{item.graph.report.testRMSE}}</p>
-                        <p>Average RMSE: {{item.graph.report.averageRMSE}}</p>
-                        <p>
-                          RMSE list: 
-                          <span class="badge badge-light" *ngFor="let rmse of item.graph.report.rmseList">{{rmse}}</span>
-                        </p>
-                        <p>New RMSE: {{item.graph.report.newRMSE}}</p>
-                        <p>Test SMAPE: {{item.graph.report.newRMSE}}</p>
-                      </aside>
-                    </ng-template>
-                  </ngb-tab>
-                </ngb-tabset>
+                <plotly-plot [data]="item.graph.data" [layout]="item.graph.layout"></plotly-plot>
+                <aside *ngIf="item.graph.report">
+                  <p>Test RMSE: {{item.graph.report.testRMSE}}</p>
+                  <p>Average RMSE: {{item.graph.report.averageRMSE}}</p>
+                  <p>RMSE list: 
+                    <span class="badge badge-light" *ngFor="let rmse of item.graph.report.rmseList">{{rmse}}</span>
+                  </p>
+                  <p>New RMSE: {{item.graph.report.newRMSE}}</p>
+                  <p>Test SMAPE: {{item.graph.report.newRMSE}}</p>
+                </aside>
               </div>
-              <footer class="card-footer row">
-                <p class="btn btn-danger" (click)="removePrevision(i)"> Delete</p>
-                <p class="btn btn-primary" (click)="startPrevision(i)"> Start</p>
-              </footer>
-            </article>
-            </ng-template>
-            </li>
-          </ngb-tab>
-        </ngb-tabset>
-      
-    </ul>
+            </nb-card-body>
+            <nb-card-footer>
+              <button nbButton status="danger" (click)="removePrevision(i)"> Delete</button>
+              <button nbButton status="primary" (click)="startPrevision(i)"> Start</button>
+            </nb-card-footer>
+          </nb-card>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
 
   </section>
 </main>

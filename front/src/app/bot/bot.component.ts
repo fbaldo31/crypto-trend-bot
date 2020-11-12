@@ -27,7 +27,7 @@ export class BotComponent implements OnInit {
     this.previsions = [];
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     let previsions;
     try {
       previsions = JSON.parse(localStorage.getItem('previsions'));
@@ -39,10 +39,10 @@ export class BotComponent implements OnInit {
     }
   }
 
-  onPrevisionAdded(event: any) {
+  onPrevisionAdded(event: any): void {
     let prevision: Prevision;
     try {
-      prevision = new Prevision(<IPrevisionOpts>event);
+      prevision = new Prevision(event as IPrevisionOpts);
     } catch (error) {
       console.error(error);
     }
@@ -58,16 +58,16 @@ export class BotComponent implements OnInit {
     }
   }
 
-  removePrevision(index: number) {
+  removePrevision(index: number): void {
     this.previsions.splice(index, 1);
     this.savePrevisions();
   }
 
-  savePrevisions() {
+  savePrevisions(): void {
     localStorage.setItem('previsions', JSON.stringify(this.previsions));
   }
 
-  startPrevision(index: number) {
+  startPrevision(index: number): void {
     this.isLoading = true;
     const tStart = this.previsions[index].trainStartDate;
     const tEnd = this.previsions[index].trainEndDate;
@@ -85,7 +85,7 @@ export class BotComponent implements OnInit {
       .catch((res: Error|HttpErrorResponse) => this.handleError(res));
   }
 
-  async handleResponse(res: any) {
+  async handleResponse(res: any): Promise<IGraph> {
     if (res.status || res.headers && res.headers['Content-Type'] === 'text/html' ) {
       // No data: Error
       throw new Error('Something went wrong, please try again');
@@ -102,7 +102,7 @@ export class BotComponent implements OnInit {
     return await graphData;
   }
 
-  handleError(res: Error|HttpErrorResponse) {
+  handleError(res: Error|HttpErrorResponse): void {
     if (res instanceof HttpErrorResponse) {
       if (res.status && res.status === 500) {
         this.errMsg = 'Please try again.';

@@ -1,39 +1,4 @@
-<nav class="container-fluid row">
-  <!-- Logo -->
-    <div class="navbar-header">
-      <a class="navbar-brand text-white mr-0 mr-md-2" href [routerLink]="['/']">Trend bot</a>
-    </div>
-    <!-- Nav -->
-    <div class="navbar-nav-scroll">
-      <ul class="navbar-nav bd-navbar-nav flex-row">
-        <li *ngFor="let link of links" class="nav-item">
-          <a class="nav-link text-white" href [routerLink]="[link.path]">{{link.label}} <span class="sr-only">(current)</span></a>
-        </li>
-      </ul>
-    </div>
-    <!-- Phone size -->
-    <button *ngIf="isCollapsed" class="navbar-toggler collapsed" type="button" data-toggle="collapse" (click)="isCollapsed = !isCollapsed">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div *ngIf="isCollapsed" class="navbar-collapse collapse">
-      <ul class="navbar-nav mr-auto">
-        <li *ngFor="let link of links" class="nav-item {{link.active ? 'active': disabled ? 'disabled': ''}}">
-        <a class="nav-link" href [routerLink]="[link.path]">{{link.label}} <span class="sr-only">(current)</span></a>
-      </li>
-      <!-- Hidden   -->
-        <li class="nav-item dropdown hidden">
-          <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-      </ul>
-      <!-- 
-      <form class="form-inline my-2 my-md-0">
-        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-      </form>
-      -->
-  </div>
-</nav>
+<nb-actions>
+  <nb-action link="intro'">Get started !</nb-action>
+  <nb-action link="bot">Go further</nb-action>
+</nb-actions>

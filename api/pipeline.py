@@ -51,7 +51,7 @@ def getData(mode):
         data.isnull().values.any()
         data.head(10)
         # Transform data to get the average price grouped by the day
-        data['date'] = pd.to_datetime(data['Timestamp'],unit='s').dt.date
+        data['date'] = pd.to_datetime(data['Unix_Timestamp'],unit='s').dt.date
         group = data.groupby('date')
         Daily_Price = group['Weighted_Price'].mean()
         return Daily_Price
@@ -192,6 +192,12 @@ def get_rmse(model, X_test, Y_test, scaler, start_point, working_data, n_train):
     # print(X_test)
     # X_test = np.reshape(X_test, (len(X_test), 1, 1))
     # print(X_test)
+
+    # Try 2
+    # add one additional data point to align shapes of the predictions and true labels
+    # X_test = np.append(X_test, scaler.transform(working_data.iloc[start_point+n_train+len(X_test)][0]))
+    # X_test = np.reshape(X_test, (len(X_test), 1, 1))
+
 
     # get predictions and then make some transformations to be able to calculate RMSE properly in USD
     prediction = model.predict(X_test)
